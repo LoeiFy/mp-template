@@ -4,6 +4,6 @@ export type ApiNames = 'demo' | 'demo1'
 
 export default {
   demo: {
-    path: '/a'
+    path: '/a',
   },
 } as Apis

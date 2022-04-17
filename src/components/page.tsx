@@ -8,9 +8,7 @@ const P: FC = ({ children }) => {
 
   return (
     <View>
-      <View>
-        <Toast type='loading' open={showToast} position='bottom' onClose={() => dispatch({ showToast: false })}>toast</Toast>
-      </View>
+      <Toast type="loading" open={showToast} position="bottom" onClose={() => dispatch({ showToast: true })}>toast</Toast>
       {children}
     </View>
   )

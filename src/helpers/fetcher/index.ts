@@ -20,7 +20,7 @@ podiceps.fetcher = (config) => new Promise((resolve, reject) => {
     },
     fail(e) {
       reject(e)
-    }
+    },
   })
 })
 

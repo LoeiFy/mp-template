@@ -1,23 +1,20 @@
 import { Component } from 'react'
+import '@taroify/icons/index.scss'
+import '@taroify/core/index.scss'
 import { createStore } from './store'
-import './app.less'
 
-class App extends Component {
-
-  componentDidMount () {
+export default class extends Component {
+  componentDidMount() {
     createStore({ name: 'aaa', showToast: false })
   }
 
-  componentDidShow () {}
+  // componentDidShow() {}
 
-  componentDidHide () {}
+  // componentDidHide() {}
 
-  componentDidCatchError () {}
+  // componentDidCatchError() {}
 
-  // this.props.children 是将要会渲染的页面
-  render () {
+  render() {
     return this.props.children
   }
 }
-
-export default App
