@@ -5,7 +5,14 @@ import { createStore } from './store'
 
 export default class extends Component {
   componentDidMount() {
-    createStore({ name: 'aaa', showToast: false })
+    createStore({
+      name: 'aaa',
+      showToast: false,
+      toast: {
+        open: false,
+        text: '',
+      },
+    })
   }
 
   // componentDidShow() {}

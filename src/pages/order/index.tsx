@@ -1,20 +1,21 @@
 import { Component } from 'react'
+import { View } from '@tarojs/components'
 import Page from '../../components/page'
-import { connect, Connect } from '../../store'
+import { connect, ConnectProps } from '../../store'
 import './index.less'
 
 definePageConfig({
   navigationBarTitleText: 'order',
 })
 
-class Index extends Component<Connect> {
+class Index extends Component<ConnectProps> {
   render() {
     return (
       <Page>
-        ???
+        <View onClick={() => wx.navigateBack()}>uuu</View>
       </Page>
     )
   }
 }
 
-export default connect('name')(Index)
+export default connect('toast')(Index)

@@ -1,17 +1,18 @@
 import { Component } from 'react'
 import { View, Text } from '@tarojs/components'
-import { Button, Toast } from '@taroify/core'
+import { Button } from '@taroify/core'
 import { ArrowLeft, Replay, Arrow } from '@taroify/icons'
 // import api from '../../helpers/fetcher'
 import Page from '../../components/page'
-import { connect, Connect } from '../../store'
+import { connect, ConnectProps } from '../../store'
+import { setLoading, setToast } from '../../store/action'
 import './index.less'
 
 definePageConfig({
   navigationBarTitleText: '首页???',
 })
 
-class Index extends Component<Connect> {
+class Index extends Component<ConnectProps> {
   componentDidMount() { }
 
   componentWillUnmount() { }
@@ -23,19 +24,15 @@ class Index extends Component<Connect> {
   render() {
     return (
       <Page>
-        <Toast open position="bottom">toast???</Toast>
         <View
-          onClick={() => {
-            this.props.dispatch({ name: 'bbb' })
-          }}
           className="index"
         >
           <Text>Hello world!</Text>
-          <View>{this.props.name}</View>
           <Button.Group variant="contained" color="primary" shape="round">
             <Button> <ArrowLeft /> 上一步</Button>
             <Button onClick={() => {
-              this.props.dispatch({ showToast: true })
+              // this.props.dispatch(setLoading, true)
+              this.props.dispatch(setToast, 'fail', '????')
             }}
             > <Replay /> 刷新
             </Button>
@@ -47,4 +44,4 @@ class Index extends Component<Connect> {
   }
 }
 
-export default connect('name')(Index)
+export default connect('toast')(Index)
