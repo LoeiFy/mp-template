@@ -1,21 +1,42 @@
 import { FC } from 'react'
 import { View } from '@tarojs/components'
-import { Toast, ActionSheet } from '@taroify/core'
-import { useStore, dispatch } from '../store'
+import {
+  Toast, ActionSheet, Dialog, Button,
+} from '@taroify/core'
+import { useStore, emit } from '../store'
 
 const P: FC = ({ children }) => {
-  const { toast, actionSheet } = useStore('toast', 'actionSheet')
+  const { toast, actionSheet, dialog } = useStore('toast', 'actionSheet', 'dialog')
 
   return (
     <View>
       {children}
+      <Dialog
+        open={dialog.open}
+        onClose={() => emit({ dialog: { ...dialog, open: false } })}
+      >
+        {dialog.title ? <Dialog.Header>{dialog.title}</Dialog.Header> : null}
+        <Dialog.Content>{dialog.content}</Dialog.Content>
+        <Dialog.Actions>
+          {
+            dialog.showCancel
+              ? <Button onClick={() => emit({ dialog: { ...dialog, open: false } })}>取消</Button>
+              : null
+          }
+          <Button
+            onClick={() => emit({ dialog: { ...dialog, open: false, confirmed: true } })}
+          >
+            确认
+          </Button>
+        </Dialog.Actions>
+      </Dialog>
       <Toast
         type={toast.type}
         open={toast.open}
         position={toast.type ? undefined : 'bottom'}
         onClose={() => {
           if (toast.type !== 'loading') {
-            dispatch({ toast: { ...toast, open: false } })
+            emit({ toast: { ...toast, open: false } })
           }
         }}
       >
@@ -23,11 +44,11 @@ const P: FC = ({ children }) => {
       </Toast>
       <ActionSheet
         open={actionSheet.open}
-        onSelect={(v) => dispatch({
+        onSelect={(v) => emit({
           actionSheet: { ...actionSheet, value: v.value, open: false },
         })}
         onClose={() => {
-          dispatch({ actionSheet: { ...actionSheet, open: false } })
+          emit({ actionSheet: { ...actionSheet, open: false } })
         }}
       >
         {
@@ -46,7 +67,7 @@ const P: FC = ({ children }) => {
         {
           actionSheet.cancel ? (
             <ActionSheet.Button
-              onClick={() => dispatch({ actionSheet: { ...actionSheet, open: false } })}
+              onClick={() => emit({ actionSheet: { ...actionSheet, open: false } })}
               type="cancel"
             >
               {actionSheet.cancel}

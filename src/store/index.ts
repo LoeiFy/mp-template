@@ -6,6 +6,14 @@ export type State = {
     type?: 'loading' | 'success' | 'fail',
     text: string,
   },
+  dialog: {
+    unique: string,
+    open: boolean,
+    title?: string,
+    content: string,
+    confirmed?: boolean,
+    showCancel?: boolean,
+  },
   actionSheet: {
     unique: string,
     open: boolean,
@@ -27,6 +35,7 @@ export type DispatchType = Dispatch<State>
 export const {
   createStore,
   dispatch,
+  emit,
   useStore,
   connect,
 } = new Nycticorax<State>()
@@ -36,6 +45,11 @@ export const initStore = () => {
     toast: {
       open: false,
       text: '',
+    },
+    dialog: {
+      unique: '',
+      open: false,
+      content: '',
     },
     actionSheet: {
       open: false,

@@ -4,8 +4,7 @@ import { Button } from '@taroify/core'
 import { ArrowLeft, Replay, Arrow } from '@taroify/icons'
 // import api from '../../helpers/fetcher'
 import Page from '../../components/page'
-import { useStore, dispatch, State } from '../../store'
-// import { setLoading, setToast } from '../../store/action'
+import { useStore, State, emit } from '../../store'
 import './index.less'
 
 definePageConfig({
@@ -27,7 +26,9 @@ const T: FC = () => {
   const { actionSheet } = useStore('actionSheet')
 
   useEffect(() => {
-    console.log(actionSheet)
+    if (actionSheet.unique === ac.unique && actionSheet.value !== undefined) {
+      console.log(actionSheet.value)
+    }
   }, [actionSheet])
 
   return (
@@ -41,7 +42,7 @@ const T: FC = () => {
           <Button onClick={() => {
             // this.props.dispatch(setLoading, true)
             // this.props.dispatch(setToast, 'fail', '????')
-            dispatch({ actionSheet: ac })
+            emit({ actionSheet: ac })
           }}
           > <Replay /> 刷新
           </Button>

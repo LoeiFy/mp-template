@@ -1,7 +1,7 @@
 import { DispatchType, State } from './index'
 
-export const setLoading: DispatchType = ({ dispatch }, open: boolean) => {
-  dispatch({
+export const setLoading: DispatchType = async ({ emit }, open: boolean) => {
+  emit({
     toast: {
       type: 'loading',
       open,
@@ -10,16 +10,18 @@ export const setLoading: DispatchType = ({ dispatch }, open: boolean) => {
   })
 }
 
-export const setToast: DispatchType = (
-  { dispatch },
-  type: State['toast']['type'],
-  message: string,
+export const setToast: DispatchType = async (
+  { emit },
+  params: {
+    type: State['toast']['type'],
+    message: string,
+  },
 ) => {
-  dispatch({
+  emit({
     toast: {
-      type,
+      type: params.type,
       open: true,
-      text: message,
+      text: params.message,
     },
   })
 }
