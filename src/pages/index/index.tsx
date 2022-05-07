@@ -1,18 +1,18 @@
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 import { View, Text } from '@tarojs/components'
 import { Button } from '@taroify/core'
 import { ArrowLeft, Replay, Arrow } from '@taroify/icons'
 // import api from '../../helpers/fetcher'
 import Page from '../../components/page'
-import { useStore, State, emit } from '../../store'
+import { State, dispatch } from '../../store'
+import { showDialog, showActionSheet, setLoading, $ } from '../../store/action'
 import './index.less'
 
 definePageConfig({
-  navigationBarTitleText: '首页???',
+  navigationBarTitleText: '首页',
 })
 
 const ac: State['actionSheet'] = {
-  unique: 'aaa',
   options: [
     { name: '选项1', value: '0' },
     { name: '选项2', value: '1', disabled: true },
@@ -23,30 +23,44 @@ const ac: State['actionSheet'] = {
 }
 
 const T: FC = () => {
-  const { actionSheet } = useStore('actionSheet')
+  const onDialog = () => {
+    $.dialog({
+      title: 'Dialog',
+      content: 'Dialog Content',
+      showCancel: true,
+    })
+  }
 
-  useEffect(() => {
-    if (actionSheet.unique === ac.unique && actionSheet.value !== undefined) {
-      console.log(actionSheet.value)
-    }
-  }, [actionSheet])
+  const onToast = () => {
+    $.toast('Toast', 'success')
+  }
+
+  const onLoading = async () => {
+    await $.loading(true)
+    await new Promise((r) => setTimeout(r, 3000))
+    $.loading(false)
+  }
 
   return (
-    <Page>
+    <Page
+      loading={false}
+      onDialogOk={() => console.log('Dialog Confirm')}
+      onActionSheetSelect={(node) => console.log(node)}
+    >
       <View
         className="index"
       >
         <Text>Hello world!</Text>
         <Button.Group variant="contained" color="primary" shape="round">
-          <Button> <ArrowLeft /> 上一步</Button>
+          <Button onClick={onDialog}> <ArrowLeft /> Dialog</Button>
+          <Button onClick={onLoading}> <ArrowLeft /> Loading</Button>
           <Button onClick={() => {
-            // this.props.dispatch(setLoading, true)
             // this.props.dispatch(setToast, 'fail', '????')
-            emit({ actionSheet: ac })
+            // emit({ actionSheet: ac })
           }}
           > <Replay /> 刷新
           </Button>
-          <Button>下一步 <Arrow /></Button>
+          <Button onClick={onToast}>Toast <Arrow /></Button>
         </Button.Group>
       </View>
     </Page>

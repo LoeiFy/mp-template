@@ -7,18 +7,16 @@ export type State = {
     text: string,
   },
   dialog: {
-    unique: string,
+    hash?: string,
     open: boolean,
     title?: string,
     content: string,
-    confirmed?: boolean,
     showCancel?: boolean,
   },
   actionSheet: {
-    unique: string,
+    hash?: string,
     open: boolean,
     cancel?: string,
-    value?: string | number,
     header?: string,
     options: {
       value: string | number,
@@ -47,13 +45,11 @@ export const initStore = () => {
       text: '',
     },
     dialog: {
-      unique: '',
       open: false,
       content: '',
     },
     actionSheet: {
       open: false,
-      unique: '',
       options: [],
     },
   })
