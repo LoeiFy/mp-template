@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { View, Text } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { Button } from '@taroify/core'
 import { ArrowLeft, Replay, Arrow } from '@taroify/icons'
 // import api from '../../helpers/fetcher'
@@ -9,6 +9,7 @@ import './index.less'
 
 definePageConfig({
   navigationBarTitleText: '首页',
+  disableScroll: true,
 })
 
 const T: FC = () => {
@@ -51,8 +52,9 @@ const T: FC = () => {
     >
       <View
         className="index"
+        style={{ height: '100%' }}
       >
-        <Text>Hello world!</Text>
+        <View style={{ height: 1000 }}>Hello world!</View>
         <Button.Group variant="contained" color="primary" shape="round">
           <Button onClick={onDialog}> <ArrowLeft /> Dialog</Button>
           <Button onClick={onLoading}> <ArrowLeft /> Loading</Button>

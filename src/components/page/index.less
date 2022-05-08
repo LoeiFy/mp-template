@@ -1,9 +1,9 @@
-.loading-color {
+.base-loading-color {
   .taroify-loading__spinner {
     color: #1989fa;
   }
 }
-.loading-wrap {
+.base-loading-wrap {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,4 +14,14 @@ page {
 }
 .taroify-toast + .taroify-backdrop {
   --backdrop-background-color: transparent;
+}
+.base-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.base-content {
+  overflow-x: hidden;
+  flex: 1;
+  height: 0;
 }

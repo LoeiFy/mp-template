@@ -6,6 +6,7 @@ import './index.less'
 
 definePageConfig({
   navigationBarTitleText: 'order',
+  disableScroll: true,
 })
 
 class Index extends Component<ConnectProps> {

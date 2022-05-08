@@ -9,20 +9,26 @@ import './index.less'
 interface PageProps {
   children?: ReactNode,
   loading?: boolean,
+  bottomGap?: boolean | string,
+  disableScroll?: boolean,
 }
+
+const { screenHeight, safeArea } = wx.getSystemInfoSync()
 
 const P: FC<PageProps> = ({
   children,
   loading,
+  bottomGap = '#fff',
+  disableScroll = false,
 }) => {
   const { toast, actionSheet, dialog } = useStore('toast', 'actionSheet', 'dialog')
 
   if (loading) {
     return (
-      <View className="loading-wrap">
+      <View className="base-loading-wrap">
         <Loading
           size={40}
-          className="loading-color"
+          className="base-loading-color"
           type="spinner"
           direction="vertical"
         >
@@ -33,8 +39,21 @@ const P: FC<PageProps> = ({
   }
 
   return (
-    <View>
-      {children}
+    <View className="base-container">
+      <View
+        className="base-content"
+        style={{
+          overflowY: disableScroll ? 'hidden' : 'auto',
+        }}
+      >
+        {children}
+      </View>
+      <View
+        style={{
+          height: bottomGap ? screenHeight - safeArea.bottom : 0,
+          background: bottomGap as string,
+        }}
+      />
       <Dialog
         open={dialog.open}
         onClose={() => emit({ dialog: { ...dialog, open: false } })}
