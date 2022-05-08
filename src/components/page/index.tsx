@@ -1,16 +1,24 @@
 import { FC, ReactNode } from 'react'
 import { View } from '@tarojs/components'
 import {
-  Toast, ActionSheet, Dialog, Button, Loading,
+  Toast, ActionSheet, Dialog, Button, Loading, Navbar,
 } from '@taroify/core'
+import { ArrowLeft } from '@taroify/icons'
 import { useStore, emit } from '../../store'
 import './index.less'
 
+interface Header {
+  title?: string,
+  background?: string,
+  color?: string,
+  bordered?: boolean,
+}
 interface PageProps {
   children?: ReactNode,
   loading?: boolean,
   bottomGap?: boolean | string,
   disableScroll?: boolean,
+  header?: false | Header,
 }
 
 const { screenHeight, safeArea } = wx.getSystemInfoSync()
@@ -20,8 +28,14 @@ const P: FC<PageProps> = ({
   loading,
   bottomGap = '#fff',
   disableScroll = false,
+  header = false,
 }) => {
   const { toast, actionSheet, dialog } = useStore('toast', 'actionSheet', 'dialog')
+  const pagesNum = getCurrentPages().length
+
+  const onBack = () => {
+    console.log('??')
+  }
 
   if (loading) {
     return (
@@ -40,6 +54,32 @@ const P: FC<PageProps> = ({
 
   return (
     <View className="base-container">
+      {header ? <View style={{ height: safeArea.top }} /> : null }
+      {
+        header ? (
+          <Navbar
+            style={{
+              background: (header as Header).background || '#fff',
+              color: (header as Header).color || '#323233',
+            }}
+            title={(header as Header).title}
+            bordered={(header as Header).bordered}
+          >
+            {
+            pagesNum > 1 ? (
+              <Navbar.NavLeft onClick={onBack}>
+                <ArrowLeft
+                  style={{
+                    fontSize: 16,
+                    color: (header as Header).color || '#323233',
+                  }}
+                />
+              </Navbar.NavLeft>
+            ) : null
+            }
+          </Navbar>
+        ) : null
+      }
       <View
         className="base-content"
         style={{
@@ -121,6 +161,11 @@ const P: FC<PageProps> = ({
             </ActionSheet.Button>
           ) : null
         }
+        <View
+          style={{
+            height: bottomGap ? screenHeight - safeArea.bottom : 0,
+          }}
+        />
       </ActionSheet>
     </View>
   )

@@ -2,6 +2,7 @@ module.exports = {
   globals: {
     wx: true,
     definePageConfig: true,
+    getCurrentPages: true,
   },
   extends: ['taro/react', 'airbnb'],
   settings: {

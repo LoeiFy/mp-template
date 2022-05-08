@@ -8,8 +8,8 @@ import $ from '../../store/action'
 import './index.less'
 
 definePageConfig({
+  // navigationStyle: 'custom',
   navigationBarTitleText: '首页',
-  disableScroll: true,
 })
 
 const T: FC = () => {
@@ -49,6 +49,7 @@ const T: FC = () => {
   return (
     <Page
       loading={false}
+      // header={{ title: '首页' }}
     >
       <View
         className="index"
