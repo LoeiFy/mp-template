@@ -7,6 +7,7 @@ export type State = {
     text: string,
   },
   dialog: {
+    confirmed?: boolean,
     hash?: string,
     open: boolean,
     title?: string,
@@ -14,6 +15,7 @@ export type State = {
     showCancel?: boolean,
   },
   actionSheet: {
+    value?: string | number,
     hash?: string,
     open: boolean,
     cancel?: string,
@@ -36,7 +38,32 @@ export const {
   emit,
   useStore,
   connect,
+  subscribe,
+  getStore,
 } = new Nycticorax<State>()
+
+export const triggers = {} as Record<string, ((...params: any) => void) | undefined>
+
+subscribe(([key]) => {
+  const next = getStore()[key]
+  if (next.open) {
+    return
+  }
+  if (key === 'actionSheet') {
+    const { value, hash } = next as State['actionSheet']
+    if (triggers.actionSheet) {
+      triggers.actionSheet(value, hash)
+      delete triggers.actionSheet
+    }
+  }
+  if (key === 'dialog') {
+    const { confirmed, hash } = next as State['dialog']
+    if (triggers.dialog) {
+      triggers.dialog(confirmed, hash)
+      delete triggers.dialog
+    }
+  }
+})
 
 export const initStore = () => {
   createStore({

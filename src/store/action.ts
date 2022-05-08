@@ -1,6 +1,8 @@
-import { DispatchType, State, dispatch } from './index'
+import {
+  DispatchType, State, dispatch, triggers,
+} from './index'
 
-export const setLoading: DispatchType = async ({ emit }, open: boolean) => {
+const setLoading: DispatchType = async ({ emit }, open: boolean) => {
   emit({
     toast: {
       type: 'loading',
@@ -10,7 +12,7 @@ export const setLoading: DispatchType = async ({ emit }, open: boolean) => {
   })
 }
 
-export const setToast: DispatchType = async (
+const setToast: DispatchType = async (
   { emit },
   params: {
     type: State['toast']['type'],
@@ -26,7 +28,7 @@ export const setToast: DispatchType = async (
   })
 }
 
-export const showDialog: DispatchType = async (
+const showDialog: DispatchType = async (
   { emit },
   params: State['dialog'],
 ) => {
@@ -35,7 +37,7 @@ export const showDialog: DispatchType = async (
   })
 }
 
-export const showActionSheet: DispatchType = async (
+const showActionSheet: DispatchType = async (
   { emit },
   params: State['actionSheet'],
 ) => {
@@ -44,14 +46,25 @@ export const showActionSheet: DispatchType = async (
   })
 }
 
-export const $ = {
+export default {
   async loading(open: boolean) {
     await dispatch(setLoading, open)
   },
-  async dialog(params: Omit<State['dialog'], 'open'>) {
+  async dialog(
+    params: Omit<State['dialog'], 'open'>,
+    callback?: (confirmed?: boolean, hash?: string) => void,
+  ) {
+    triggers.dialog = callback
     await dispatch(showDialog, params)
   },
   async toast(message: string, type?: State['toast']['type']) {
     await dispatch(setToast, { type, message })
+  },
+  async actionsheet(
+    params: Omit<State['actionSheet'], 'open'>,
+    callback?: (value?: string | number, hash?: string) => void,
+  ) {
+    triggers.actionSheet = callback
+    await dispatch(showActionSheet, params)
   },
 }

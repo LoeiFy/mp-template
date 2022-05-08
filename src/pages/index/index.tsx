@@ -4,23 +4,12 @@ import { Button } from '@taroify/core'
 import { ArrowLeft, Replay, Arrow } from '@taroify/icons'
 // import api from '../../helpers/fetcher'
 import Page from '../../components/page'
-import { State, dispatch } from '../../store'
-import { showDialog, showActionSheet, setLoading, $ } from '../../store/action'
+import $ from '../../store/action'
 import './index.less'
 
 definePageConfig({
   navigationBarTitleText: '首页',
 })
-
-const ac: State['actionSheet'] = {
-  options: [
-    { name: '选项1', value: '0' },
-    { name: '选项2', value: '1', disabled: true },
-  ],
-  open: true,
-  header: '什么',
-  cancel: 'cancel',
-}
 
 const T: FC = () => {
   const onDialog = () => {
@@ -28,6 +17,8 @@ const T: FC = () => {
       title: 'Dialog',
       content: 'Dialog Content',
       showCancel: true,
+    }, (confirmed, hash) => {
+      console.log(confirmed, hash)
     })
   }
 
@@ -41,11 +32,22 @@ const T: FC = () => {
     $.loading(false)
   }
 
+  const onActionSheet = () => {
+    $.actionsheet({
+      options: [
+        { name: '选项1', value: '0' },
+        { name: '选项2', value: '1', disabled: true },
+      ],
+      header: '什么',
+      cancel: 'cancel',
+    }, (value, hash) => {
+      console.log(value, hash)
+    })
+  }
+
   return (
     <Page
       loading={false}
-      onDialogOk={() => console.log('Dialog Confirm')}
-      onActionSheetSelect={(node) => console.log(node)}
     >
       <View
         className="index"
@@ -54,12 +56,7 @@ const T: FC = () => {
         <Button.Group variant="contained" color="primary" shape="round">
           <Button onClick={onDialog}> <ArrowLeft /> Dialog</Button>
           <Button onClick={onLoading}> <ArrowLeft /> Loading</Button>
-          <Button onClick={() => {
-            // this.props.dispatch(setToast, 'fail', '????')
-            // emit({ actionSheet: ac })
-          }}
-          > <Replay /> 刷新
-          </Button>
+          <Button onClick={onActionSheet}> <Replay /> ActionSheet</Button>
           <Button onClick={onToast}>Toast <Arrow /></Button>
         </Button.Group>
       </View>

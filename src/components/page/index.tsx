@@ -9,15 +9,11 @@ import './index.less'
 interface PageProps {
   children?: ReactNode,
   loading?: boolean,
-  onDialogOk?: (hash?: string) => void,
-  onActionSheetSelect?: (value: ActionSheet.ActionObject, hash?: string) => void,
 }
 
 const P: FC<PageProps> = ({
   children,
   loading,
-  onDialogOk = () => null,
-  onActionSheetSelect = () => null,
 }) => {
   const { toast, actionSheet, dialog } = useStore('toast', 'actionSheet', 'dialog')
 
@@ -53,8 +49,7 @@ const P: FC<PageProps> = ({
           }
           <Button
             onClick={() => {
-              emit({ dialog: { ...dialog, open: false } })
-              onDialogOk(dialog.hash)
+              emit({ dialog: { ...dialog, open: false, confirmed: true } })
             }}
           >
             确认
@@ -78,8 +73,7 @@ const P: FC<PageProps> = ({
       <ActionSheet
         open={actionSheet.open}
         onSelect={(node) => {
-          emit({ actionSheet: { ...actionSheet, open: false } })
-          onActionSheetSelect(node, actionSheet.hash)
+          emit({ actionSheet: { ...actionSheet, open: false, value: node.value } })
         }}
         onClose={() => {
           emit({ actionSheet: { ...actionSheet, open: false } })
