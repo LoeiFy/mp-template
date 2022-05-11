@@ -51,17 +51,15 @@ const T: FC = () => {
       loading={false}
       // header={{ title: '首页' }}
     >
-      <View
-        className="index"
-        style={{ height: '100%' }}
-      >
-        <View style={{ height: 1000 }}>Hello world!</View>
-        <Button.Group variant="contained" color="primary" shape="round">
-          <Button onClick={onDialog}> <ArrowLeft /> Dialog</Button>
-          <Button onClick={onLoading}> <ArrowLeft /> Loading</Button>
-          <Button onClick={onActionSheet}> <Replay /> ActionSheet</Button>
-          <Button onClick={onToast}>Toast <Arrow /></Button>
-        </Button.Group>
+      <View style={{ height: 1000 }}>Hello world!</View>
+      <Button.Group variant="contained" color="primary" shape="round">
+        <Button onClick={onDialog}> <ArrowLeft /> Dialog</Button>
+        <Button onClick={onLoading}> <ArrowLeft /> Loading</Button>
+        <Button onClick={onActionSheet}> <Replay /> ActionSheet</Button>
+        <Button onClick={onToast}>Toast <Arrow /></Button>
+      </Button.Group>
+      <View id="page-bottom">
+        ????
       </View>
     </Page>
   )

@@ -1,4 +1,6 @@
-import { FC, ReactNode } from 'react'
+import {
+  FC, ReactNode, Children, useMemo, isValidElement,
+} from 'react'
 import { View } from '@tarojs/components'
 import {
   Toast, ActionSheet, Dialog, Button, Loading, Navbar,
@@ -34,8 +36,27 @@ const P: FC<PageProps> = ({
   const pagesNum = getCurrentPages().length
 
   const onBack = () => {
-    console.log('??')
+    wx.navigateBack()
   }
+
+  const pageChildren = useMemo(() => {
+    let bottom: ReactNode
+    const others: ReactNode[] = []
+
+    Children.forEach(children, (child) => {
+      if (!isValidElement(child)) {
+        others.push(child)
+        return
+      }
+      if (child.props.id === 'page-bottom') {
+        bottom = child
+        return
+      }
+      others.push(child)
+    })
+
+    return { bottom, others }
+  }, [children])
 
   if (loading) {
     return (
@@ -80,13 +101,16 @@ const P: FC<PageProps> = ({
           </Navbar>
         ) : null
       }
-      <View
-        className="base-content"
-        style={{
-          overflowY: disableScroll ? 'hidden' : 'auto',
-        }}
-      >
-        {children}
+      <View className="base-content">
+        <View
+          className="page-main"
+          style={{ overflowY: disableScroll ? 'hidden' : 'auto' }}
+        >
+          {pageChildren.others}
+        </View>
+        <View className="page-bottom">
+          {pageChildren.bottom}
+        </View>
       </View>
       <View
         style={{
