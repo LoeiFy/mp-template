@@ -2,13 +2,13 @@ import { FC } from 'react'
 import { View } from '@tarojs/components'
 import { Button } from '@taroify/core'
 import { ArrowLeft, Replay, Arrow } from '@taroify/icons'
-// import api from '../../helpers/fetcher'
+import api from '../../helpers/fetcher'
 import Page from '../../components/page'
 import $ from '../../store/action'
 import './index.less'
 
 definePageConfig({
-  // navigationStyle: 'custom',
+  // navigationStyle: 'custom', // 应该不需要
   navigationBarTitleText: '首页',
 })
 
@@ -46,12 +46,17 @@ const T: FC = () => {
     })
   }
 
+  const onLoad = async () => {
+    const res = await api.post()
+    console.log(res.info)
+  }
+
   return (
     <Page
       loading={false}
       // header={{ title: '首页' }}
     >
-      <View style={{ height: 1000 }}>Hello world!</View>
+      <View style={{ height: 100 }}>Hello world!</View>
       <Button.Group variant="contained" color="primary" shape="round">
         <Button onClick={onDialog}> <ArrowLeft /> Dialog</Button>
         <Button onClick={onLoading}> <ArrowLeft /> Loading</Button>
@@ -59,7 +64,7 @@ const T: FC = () => {
         <Button onClick={onToast}>Toast <Arrow /></Button>
       </Button.Group>
       <View id="page-bottom">
-        ????
+        <Button onClick={onLoad}>Loading <Arrow /></Button>
       </View>
     </Page>
   )

@@ -1,9 +1,9 @@
 import { Apis } from './types'
 
-export type ApiNames = 'demo' | 'demo1'
+export type ApiNames = 'post' | 'next'
 
 export default {
-  demo: {
-    path: '/a',
+  post: {
+    path: '/api',
   },
 } as Apis

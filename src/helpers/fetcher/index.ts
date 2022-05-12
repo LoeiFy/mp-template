@@ -3,8 +3,10 @@ import apis from './apis'
 import { authMiddleware } from './middleware'
 import { Response, Apis } from './types'
 
+export { login, logout } from './middleware'
+
 const podiceps = new Podiceps<Apis, Response>(apis, {
-  baseURL: 'http://demo.url',
+  baseURL: 'https://randomuser.me',
 })
 
 podiceps.use([authMiddleware])
@@ -16,7 +18,7 @@ podiceps.fetcher = (config) => new Promise((resolve, reject) => {
     data: config.data,
     header: config.headers,
     success(res) {
-      resolve(res.data)
+      resolve(res.data as Response)
     },
     fail(e) {
       reject(e)
