@@ -3,6 +3,7 @@ import { View } from '@tarojs/components'
 import { Button } from '@taroify/core'
 import { ArrowLeft, Replay, Arrow } from '@taroify/icons'
 import api from '../../helpers/fetcher'
+import { getUserInfo } from '../../helpers/wx'
 import Page from '../../components/page'
 import $ from '../../store/action'
 import './index.less'
@@ -64,6 +65,14 @@ const T: FC = () => {
         <Button onClick={onToast}>Toast <Arrow /></Button>
       </Button.Group>
       <View id="page-bottom">
+        <Button
+          onClick={async () => {
+            const res = await getUserInfo()
+            console.log(res)
+          }}
+          // openType="getUserInfo"
+        >AAA
+        </Button>
         <Button onClick={onLoad}>Loading <Arrow /></Button>
       </View>
     </Page>

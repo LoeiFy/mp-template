@@ -3,6 +3,7 @@ module.exports = {
     wx: true,
     definePageConfig: true,
     getCurrentPages: true,
+    WechatMiniprogram: true,
   },
   extends: ['taro/react', 'airbnb'],
   settings: {
