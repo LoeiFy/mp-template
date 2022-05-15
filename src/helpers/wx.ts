@@ -1,4 +1,5 @@
 type UserInfo = WechatMiniprogram.GetUserProfileSuccessCallbackResult
+type Toast = WechatMiniprogram.ShowToastOption
 
 export const getUserInfo = () => new Promise<UserInfo>((resolve, reject) => {
   wx.getSetting({
@@ -22,3 +23,15 @@ export const getUserInfo = () => new Promise<UserInfo>((resolve, reject) => {
     },
   })
 })
+
+export const loading = (title: string) => {
+  wx.showLoading({
+    title,
+    mask: true,
+  })
+  return wx.hideLoading
+}
+
+export const toast = (options: Toast) => {
+  wx.showToast(options)
+}

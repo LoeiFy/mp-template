@@ -1,11 +1,6 @@
 import Nycticorax, { Connect, Dispatch } from 'nycticorax'
 
 export type State = {
-  toast: {
-    open: boolean,
-    type?: 'loading' | 'success' | 'fail',
-    text: string,
-  },
   dialog: {
     confirmed?: boolean,
     hash?: string,
@@ -67,10 +62,6 @@ subscribe(([key]) => {
 
 export const initStore = () => {
   createStore({
-    toast: {
-      open: false,
-      text: '',
-    },
     dialog: {
       open: false,
       content: '',

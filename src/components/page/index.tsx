@@ -1,11 +1,10 @@
 import {
-  FC, ReactNode, Children, useMemo, isValidElement,
+  FC, ReactNode, Children, useMemo, isValidElement, useEffect,
 } from 'react'
 import { View } from '@tarojs/components'
 import {
-  Toast, ActionSheet, Dialog, Button, Loading, Navbar,
-} from '@taroify/core'
-import { ArrowLeft } from '@taroify/icons'
+  Loading, Toast, NavBar, ActionSheet,
+} from '@antmjs/vantui'
 import { useStore, emit } from '../../store'
 import './index.less'
 
@@ -13,7 +12,6 @@ interface Header {
   title?: string,
   background?: string,
   color?: string,
-  bordered?: boolean,
 }
 interface PageProps {
   children?: ReactNode,
@@ -21,6 +19,7 @@ interface PageProps {
   bottomGap?: boolean | string,
   disableScroll?: boolean,
   header?: false | Header,
+  background?: string,
 }
 
 const { screenHeight, safeArea } = wx.getSystemInfoSync()
@@ -31,6 +30,7 @@ const P: FC<PageProps> = ({
   bottomGap = '#fff',
   disableScroll = false,
   header = false,
+  background = '#fff',
 }) => {
   const { toast, actionSheet, dialog } = useStore('toast', 'actionSheet', 'dialog')
   const pagesNum = getCurrentPages().length
@@ -58,14 +58,28 @@ const P: FC<PageProps> = ({
     return { bottom, others }
   }, [children])
 
+  useEffect(() => {
+    if (toast.open) {
+      Toast.show({
+        onClose: () => {
+          emit({ toast: { ...toast, open: false } })
+        },
+        loadingType: 'spinner',
+        message: toast.text,
+        type: toast.type,
+        forbidClick: toast.type === 'loading',
+      })
+    }
+  }, [toast])
+
   if (loading) {
     return (
       <View className="base-loading-wrap">
         <Loading
-          size={40}
-          className="base-loading-color"
+          size={70}
           type="spinner"
-          direction="vertical"
+          color="#1989fa"
+          vertical
         >
           加载中...
         </Loading>
@@ -74,31 +88,19 @@ const P: FC<PageProps> = ({
   }
 
   return (
-    <View className="base-container">
+    <View style={{ background }} className="base-container">
       {header ? <View style={{ height: safeArea.top }} /> : null }
       {
         header ? (
-          <Navbar
-            style={{
-              background: (header as Header).background || '#fff',
-              color: (header as Header).color || '#323233',
-            }}
+          <NavBar
+            // style={{
+            //   background: (header as Header).background || '#fff',
+            //   color: (header as Header).color || '#323233',
+            // }}
             title={(header as Header).title}
-            bordered={(header as Header).bordered}
-          >
-            {
-            pagesNum > 1 ? (
-              <Navbar.NavLeft onClick={onBack}>
-                <ArrowLeft
-                  style={{
-                    fontSize: 16,
-                    color: (header as Header).color || '#323233',
-                  }}
-                />
-              </Navbar.NavLeft>
-            ) : null
-            }
-          </Navbar>
+            leftArrow={pagesNum > 1}
+            onClickLeft={onBack}
+          />
         ) : null
       }
       <View className="base-content">
@@ -118,7 +120,7 @@ const P: FC<PageProps> = ({
           background: bottomGap as string,
         }}
       />
-      <Dialog
+      {/* <Dialog
         open={dialog.open}
         onClose={() => emit({ dialog: { ...dialog, open: false } })}
       >
@@ -138,56 +140,27 @@ const P: FC<PageProps> = ({
             确认
           </Button>
         </Dialog.Actions>
-      </Dialog>
-      <Toast
-        // @ts-ignore
-        backdrop
-        type={toast.type}
-        open={toast.open}
-        position={toast.type ? undefined : 'bottom'}
-        onClose={() => {
-          if (toast.type !== 'loading') {
-            emit({ toast: { ...toast, open: false } })
-          }
-        }}
-      >
-        {toast.text}
-      </Toast>
+      </Dialog> */}
+      <Toast id="vanToast" />
       <ActionSheet
-        open={actionSheet.open}
+        show={actionSheet.open}
         onSelect={(node) => {
-          emit({ actionSheet: { ...actionSheet, open: false, value: node.value } })
+          emit({ actionSheet: { ...actionSheet, open: false, value: node.detail } })
         }}
         onClose={() => {
           emit({ actionSheet: { ...actionSheet, open: false } })
         }}
+        onCancel={() => {
+          emit({ actionSheet: { ...actionSheet, open: false } })
+        }}
+        title={actionSheet.header}
+        actions={actionSheet.options}
+        cancelText={actionSheet.cancel}
       >
-        {
-          actionSheet.header ? <ActionSheet.Header>{actionSheet.header}</ActionSheet.Header> : null
-        }
-        {
-          actionSheet.options.map((t) => (
-            <ActionSheet.Action
-              value={t.value}
-              name={t.name}
-              disabled={t.disabled}
-              style={t.disabled ? { color: '#979798' } : {}}
-            />
-          ))
-        }
-        {
-          actionSheet.cancel ? (
-            <ActionSheet.Button
-              onClick={() => emit({ actionSheet: { ...actionSheet, open: false } })}
-              type="cancel"
-            >
-              {actionSheet.cancel}
-            </ActionSheet.Button>
-          ) : null
-        }
         <View
           style={{
             height: bottomGap ? screenHeight - safeArea.bottom : 0,
+            background: '#fff',
           }}
         />
       </ActionSheet>

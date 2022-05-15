@@ -1,15 +1,15 @@
 import { FC } from 'react'
 import { View } from '@tarojs/components'
-import { Button } from '@taroify/core'
-import { ArrowLeft, Replay, Arrow } from '@taroify/icons'
+// import { Button } from '@taroify/core'
+import { Button } from '@antmjs/vantui'
 import api from '../../helpers/fetcher'
-import { getUserInfo } from '../../helpers/wx'
+import { getUserInfo, loading, toast } from '../../helpers/wx'
 import Page from '../../components/page'
 import $ from '../../store/action'
 import './index.less'
 
 definePageConfig({
-  // navigationStyle: 'custom', // 应该不需要
+  // navigationStyle: 'custom',
   navigationBarTitleText: '首页',
 })
 
@@ -25,7 +25,10 @@ const T: FC = () => {
   }
 
   const onToast = () => {
-    $.toast('Toast', 'success')
+    // $.toast('Toast', 'success')
+    // toast({ title: '不显示图标，此时 title 文本最多可显示两行，1.9.0及以上版本支持', icon: 'none', mask: true })
+    const a = loading('加载中...')
+    setTimeout(a, 3000)
   }
 
   const onLoading = async () => {
@@ -56,14 +59,15 @@ const T: FC = () => {
     <Page
       loading={false}
       // header={{ title: '首页' }}
+      // background="gray"
     >
-      <View style={{ height: 100 }}>Hello world!</View>
-      <Button.Group variant="contained" color="primary" shape="round">
-        <Button onClick={onDialog}> <ArrowLeft /> Dialog</Button>
-        <Button onClick={onLoading}> <ArrowLeft /> Loading</Button>
-        <Button onClick={onActionSheet}> <Replay /> ActionSheet</Button>
-        <Button onClick={onToast}>Toast <Arrow /></Button>
-      </Button.Group>
+      <View className="demo" style={{ height: 100, fontSize: 20 }}>Hello world!</View>
+      {/* <Button.Group variant="contained" color="primary" shape="round"> */}
+      <Button type="primary" loading onClick={onDialog}>Dialog</Button>
+      <Button onClick={onLoading}>Loading</Button>
+      <Button onClick={onActionSheet}>ActionSheet</Button>
+      <Button onClick={onToast}>Toast</Button>
+      {/* </Button.Group> */}
       <View id="page-bottom">
         <Button
           onClick={async () => {
@@ -73,7 +77,7 @@ const T: FC = () => {
           // openType="getUserInfo"
         >AAA
         </Button>
-        <Button onClick={onLoad}>Loading <Arrow /></Button>
+        <Button onClick={onLoad}>Loading</Button>
       </View>
     </Page>
   )

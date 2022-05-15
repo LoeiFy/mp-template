@@ -1,6 +1,5 @@
 import { Component } from 'react'
-import '@taroify/icons/index.scss'
-import '@taroify/core/index.scss'
+import '@antmjs/vantui/lib/index.css'
 import { initStore } from './store'
 import { login } from './helpers/fetcher'
 
@@ -14,9 +13,7 @@ export default class extends Component {
   }
 
   // componentDidShow() {}
-
   // componentDidHide() {}
-
   // componentDidCatchError() {}
 
   render() {
