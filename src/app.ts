@@ -1,5 +1,4 @@
 import { Component } from 'react'
-import '@antmjs/vantui/lib/index.css'
 import { initStore } from './store'
 import { login } from './helpers/fetcher'
 

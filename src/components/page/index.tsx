@@ -2,9 +2,9 @@ import {
   FC, ReactNode, Children, useMemo, isValidElement, useEffect,
 } from 'react'
 import { View } from '@tarojs/components'
-import {
-  Loading, Toast, NavBar, ActionSheet,
-} from '@antmjs/vantui'
+// import {
+//   Loading, Toast, NavBar, ActionSheet,
+// } from '@antmjs/vantui'
 import { useStore, emit } from '../../store'
 import './index.less'
 
@@ -59,37 +59,37 @@ const P: FC<PageProps> = ({
   }, [children])
 
   useEffect(() => {
-    if (toast.open) {
-      Toast.show({
-        onClose: () => {
-          emit({ toast: { ...toast, open: false } })
-        },
-        loadingType: 'spinner',
-        message: toast.text,
-        type: toast.type,
-        forbidClick: toast.type === 'loading',
-      })
-    }
+    // if (toast.open) {
+    //   Toast.show({
+    //     onClose: () => {
+    //       emit({ toast: { ...toast, open: false } })
+    //     },
+    //     loadingType: 'spinner',
+    //     message: toast.text,
+    //     type: toast.type,
+    //     forbidClick: toast.type === 'loading',
+    //   })
+    // }
   }, [toast])
 
   if (loading) {
     return (
       <View className="base-loading-wrap">
-        <Loading
+        {/* <Loading
           size={70}
           type="spinner"
           color="#1989fa"
           vertical
         >
           加载中...
-        </Loading>
+        </Loading> */}
       </View>
     )
   }
 
   return (
     <View style={{ background }} className="base-container">
-      {header ? <View style={{ height: safeArea.top }} /> : null }
+      {/* {header ? <View style={{ height: safeArea.top }} /> : null }
       {
         header ? (
           <NavBar
@@ -102,7 +102,7 @@ const P: FC<PageProps> = ({
             onClickLeft={onBack}
           />
         ) : null
-      }
+      } */}
       <View className="base-content">
         <View
           className="page-main"
@@ -141,8 +141,8 @@ const P: FC<PageProps> = ({
           </Button>
         </Dialog.Actions>
       </Dialog> */}
-      <Toast id="vanToast" />
-      <ActionSheet
+      {/* <Toast id="vanToast" /> */}
+      {/* <ActionSheet
         show={actionSheet.open}
         onSelect={(node) => {
           emit({ actionSheet: { ...actionSheet, open: false, value: node.detail } })
@@ -163,7 +163,7 @@ const P: FC<PageProps> = ({
             background: '#fff',
           }}
         />
-      </ActionSheet>
+      </ActionSheet> */}
     </View>
   )
 }
