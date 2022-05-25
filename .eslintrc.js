@@ -4,6 +4,7 @@ module.exports = {
     definePageConfig: true,
     getCurrentPages: true,
     WechatMiniprogram: true,
+    NodeJS: true,
   },
   extends: ['taro/react', 'airbnb'],
   settings: {

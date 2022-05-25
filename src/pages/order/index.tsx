@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import { View } from '@tarojs/components'
-import Popup from '../../components/ui/popup'
+// import Popup from '../../components/ui/popup'
+import Toast from '../../components/ui/toast'
 import './index.less'
 
 definePageConfig({
@@ -10,23 +11,32 @@ definePageConfig({
 
 class Index extends Component {
   state = {
-    open: false,
+    // open: false,
+    message: '',
   }
 
   render() {
-    const { open } = this.state
+    // const { open } = this.state
+    const { message } = this.state
 
     return (
       <View>
-        <View onClick={() => this.setState({ open: true })}>
+        <View onClick={() => this.setState({ message: 'Materialize To do this, call the M.toast() function programatically' })}>
           open
         </View>
-        <Popup
+        <View onClick={() => this.setState({ message: 'Materialize' })}>
+          open2
+        </View>
+        <Toast
+          message={message}
+          onClose={() => this.setState({ message: '' })}
+        />
+        {/* <Popup
           onClose={() => this.setState({ open: false })}
           open={open}
         >
           <View style={{ width: 100, height: 100, background: '#4994df' }} />
-        </Popup>
+        </Popup> */}
       </View>
     )
   }
