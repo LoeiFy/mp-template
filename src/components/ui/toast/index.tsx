@@ -28,13 +28,13 @@ export default function ({
   useEffect(() => {
     setShow(!!message)
 
-    if (message) {
+    if (message && type !== 'loading') {
       timer.current = setTimeout(() => {
         setShow(false)
         onClose()
       }, 3000)
     }
-  }, [message, onClose])
+  }, [message, type, onClose])
 
   return (
     <Popup

@@ -28,6 +28,7 @@ class Index extends Component {
           open2
         </View>
         <Toast
+          type="loading"
           message={message}
           onClose={() => this.setState({ message: '' })}
         />

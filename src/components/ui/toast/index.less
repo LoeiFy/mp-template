@@ -7,20 +7,38 @@
 
   > view {
     transform: translateY(120px);
-    background: #333;
+    background-color: #333;
     border-radius: 20px;
     color: #fff;
-    padding: 6px 24px;
+    padding: 6px 16px;
     width: fit-content;
     word-break: break-all;
     font-size: 14px;
     line-height: 1.6;
+    display: flex;
+    align-items: center;
 
     &:empty {
       display: none;
     }
   }
 
-  &-text {
+  &-loading {
+    &::before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      margin-right: 6px;
+      background-image: url(data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik03NTMuMzY1IDI3MC42MzVhNDYuMDggNDYuMDggMCAwIDEtNjEuMjI2IDMuNDk4IDIyMC45NyAyMjAuOTcgMCAwIDAtMTQuMjk0LTEwLjU4MSAyOTguNzUyIDI5OC43NTIgMCAwIDAtNDQxLjc3IDM2Mi42NjcgMjk4LjY2NyAyOTguNjY3IDAgMCAwIDU3MS45MDQtNzQuMjgzQTQ1LjY5NiA0NS42OTYgMCAwIDEgODUzLjMzMyA1MTJoMy4zMjhhMzcuMzMzIDM3LjMzMyAwIDAgMSAzNy4xMiA0MS4zMDEgMzg0IDM4NCAwIDEgMS0xNTEuOTM2LTM0OC45N2MyLjU2IDEuOTIgNS40MTkgNC4xODEgOC42MTkgNi44MjZhNDAuMTkyIDQwLjE5MiAwIDAgMSAyLjkwMSA1OS40Nzh6IiBmaWxsPSIjZmZmIi8+PC9zdmc+Cg==);
+      background-size: cover;
+      animation: spin 1s linear infinite;
+    }
+  }
+}
+
+@keyframes spin {
+  to {
+      transform: rotate(360deg);
   }
 }
