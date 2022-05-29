@@ -24,6 +24,17 @@ class Index extends Component {
         <View onClick={() => this.setState({ message: 'Materialize To do this, call the M.toast() function programatically' })}>
           open
         </View>
+        <View className="line" />
+        <View className="el">
+          white-space: pre-wrap;
+          /* stylelint-disable */
+          /* autoprefixer: ignore next */
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -moz-box-orient: vertical;
+          -webkit-line-clamp: $lines;
+          /* stylelint-enable */
+        </View>
         <View onClick={() => {
           this.setState({ message: 'Materialize' })
           setTimeout(() => {
