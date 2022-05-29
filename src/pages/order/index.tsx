@@ -24,11 +24,17 @@ class Index extends Component {
         <View onClick={() => this.setState({ message: 'Materialize To do this, call the M.toast() function programatically' })}>
           open
         </View>
-        <View onClick={() => this.setState({ message: 'Materialize' })}>
+        <View onClick={() => {
+          this.setState({ message: 'Materialize' })
+          setTimeout(() => {
+            this.setState({ message: '' })
+          }, 3000)
+        }}
+        >
           open2
         </View>
         <Toast
-          type="loading"
+          type="fail"
           message={message}
           onClose={() => this.setState({ message: '' })}
         />

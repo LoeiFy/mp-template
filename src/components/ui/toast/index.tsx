@@ -19,6 +19,10 @@ export default function ({
   const timer = useRef<NodeJS.Timeout>()
 
   const onHide = () => {
+    if (type === 'loading') {
+      return
+    }
+
     if (timer.current) {
       clearTimeout(timer.current)
     }
