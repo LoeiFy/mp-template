@@ -57,7 +57,7 @@ class Index extends Component {
           <View style={{ width: 100, height: 100, background: '#4994df' }} />
         </Popup> */}
         <Modal
-          title="标题是事实"
+          // title="标题是事实"
           open={open}
           loading
           message="代码是写出来给人看的，附带能在机器上运行"

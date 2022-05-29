@@ -45,9 +45,7 @@ export default function ({
       onClose={() => onButton('close')}
     >
       <View className={`${prefix}modal`}>
-        {
-          title ? <View className={`${prefix}modal-title`}>{title}</View> : null
-        }
+        <View className={`${prefix}modal-title`}>{title}</View>
         <View className={`${prefix}modal-message`}>{message}</View>
         <View className={`${prefix}modal-line`} />
         <View className={`${prefix}modal-actions`}>
