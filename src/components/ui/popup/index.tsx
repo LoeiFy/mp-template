@@ -15,7 +15,7 @@ interface PopupProps {
 export default function ({
   open,
   onClose = () => null,
-  background = 'rgba(0, 0, 0, .3)',
+  background = 'rgba(0, 0, 0, .5)',
   placement = 'center',
   children,
 }: PopupProps) {
