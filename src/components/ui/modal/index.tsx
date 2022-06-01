@@ -50,7 +50,10 @@ export default function ({
         <View className={`${prefix}modal-line`} />
         <View className={`${prefix}modal-actions`}>
           {
-            showCancel ? <View onClick={() => onButton('cancel')} className={`${prefix}modal-cancel`}>取消</View> : null
+            showCancel ? <View onClick={() => onButton('cancel')}>取消</View> : null
+          }
+          {
+            showCancel ? <View className={`${prefix}modal-vertical`} /> : null
           }
           <View onClick={() => onButton('confirm')} className={`${prefix}modal-confirm ${loading ? `${prefix}modal-loading` : ''}`}>确定</View>
         </View>

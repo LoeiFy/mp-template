@@ -3,6 +3,7 @@ import { View } from '@tarojs/components'
 // import Popup from '../../components/ui/popup'
 import Toast from '../../components/ui/toast'
 import Modal from '../../components/ui/modal'
+import ActionSheet from '../../components/ui/action-sheet'
 import './index.less'
 
 definePageConfig({
@@ -57,10 +58,23 @@ class Index extends Component {
           <View style={{ width: 100, height: 100, background: '#4994df' }} />
         </Popup> */}
         <Modal
-          // title="标题是事实"
-          open={open}
+          title="标题是事实"
+          open={false}
           loading
           message="代码是写出来给人看的，附带能在机器上运行"
+        />
+        <ActionSheet
+          open={open}
+          title="标题"
+          description="代码是写出来给人看的，附带能在机器上运行"
+          options={[
+            { label: 'one', value: 'one' },
+            { label: '第二', value: 'on', disabled: true },
+          ]}
+          onSelect={(v) => {
+            console.log(v)
+            this.setState({ open: false })
+          }}
         />
       </View>
     )
