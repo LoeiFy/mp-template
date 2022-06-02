@@ -10,7 +10,6 @@ interface ActionSheetProps {
   options: {
     label: string,
     value: string | number,
-    disabled?: boolean,
   }[],
   showCancel?: boolean,
   onSelect?: (value: {
@@ -45,7 +44,7 @@ export default function ({
         <View className={`${prefix}actionsheet-options`}>
           {
             options.map((t) => (
-              <View key={t.value} onClick={() => onSelect(t)} className={t.disabled ? `${prefix}actionsheet-disabled` : ''}>{t.label}</View>
+              <View key={t.value} onClick={() => onSelect(t)}>{t.label}</View>
             ))
           }
         </View>

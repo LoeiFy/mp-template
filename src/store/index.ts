@@ -1,25 +1,32 @@
 import Nycticorax, { Connect, Dispatch } from 'nycticorax'
 
+interface Option {
+  value: string | number,
+  label: string,
+  [key: string]: any,
+}
+
 export type State = {
-  dialog: {
+  toast: {
+    type?: 'loading' | 'success' | 'fail',
+    message: string,
+  },
+  modal: {
     confirmed?: boolean,
     hash?: string,
     open: boolean,
     title?: string,
-    content: string,
+    message: string,
     showCancel?: boolean,
   },
   actionSheet: {
-    value?: string | number,
+    value?: Option,
     hash?: string,
     open: boolean,
-    cancel?: string,
-    header?: string,
-    options: {
-      value: string | number,
-      name: string,
-      disabled?: boolean,
-    }[],
+    title?: string,
+    description?: string,
+    showCancel?: boolean,
+    options: Option[],
   },
 }
 
@@ -40,6 +47,10 @@ export const {
 export const triggers = {} as Record<string, ((...params: any) => void) | undefined>
 
 subscribe(([key]) => {
+  if (key === 'toast') {
+    return
+  }
+
   const next = getStore()[key]
   if (next.open) {
     return
@@ -51,20 +62,23 @@ subscribe(([key]) => {
       delete triggers.actionSheet
     }
   }
-  if (key === 'dialog') {
-    const { confirmed, hash } = next as State['dialog']
-    if (triggers.dialog) {
-      triggers.dialog(confirmed, hash)
-      delete triggers.dialog
+  if (key === 'modal') {
+    const { confirmed, hash } = next as State['modal']
+    if (triggers.modal) {
+      triggers.modal(confirmed, hash)
+      delete triggers.modal
     }
   }
 })
 
 export const initStore = () => {
   createStore({
-    dialog: {
+    toast: {
+      message: '',
+    },
+    modal: {
       open: false,
-      content: '',
+      message: '',
     },
     actionSheet: {
       open: false,

@@ -6,8 +6,7 @@ const setLoading: DispatchType = async ({ emit }, open: boolean) => {
   emit({
     toast: {
       type: 'loading',
-      open,
-      text: '加载中...',
+      message: open ? '加载中...' : '',
     },
   })
 }
@@ -15,25 +14,24 @@ const setLoading: DispatchType = async ({ emit }, open: boolean) => {
 const setToast: DispatchType = async (
   { emit },
   params: {
-    type: State['toast']['type'],
+    type?: 'success' | 'fail',
     message: string,
   },
 ) => {
   emit({
     toast: {
       type: params.type,
-      open: true,
-      text: params.message,
+      message: params.message,
     },
   })
 }
 
 const showDialog: DispatchType = async (
   { emit },
-  params: State['dialog'],
+  params: State['modal'],
 ) => {
   emit({
-    dialog: { ...params, open: true },
+    modal: { ...params, open: true },
   })
 }
 
@@ -50,14 +48,14 @@ export default {
   async loading(open: boolean) {
     await dispatch(setLoading, open)
   },
-  async dialog(
-    params: Omit<State['dialog'], 'open'>,
+  async modal(
+    params: Omit<State['modal'], 'open'>,
     callback?: (confirmed?: boolean, hash?: string) => void,
   ) {
-    triggers.dialog = callback
+    triggers.modal = callback
     await dispatch(showDialog, params)
   },
-  async toast(message: string, type?: State['toast']['type']) {
+  async toast(message: string, type?: 'success' | 'fail') {
     await dispatch(setToast, { type, message })
   },
   async actionsheet(
