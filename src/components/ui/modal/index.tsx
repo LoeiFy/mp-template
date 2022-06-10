@@ -1,7 +1,7 @@
 import { View } from '@tarojs/components'
 import Popup from '../popup'
 import { prefix } from '../styles'
-import './index.less'
+// import './index.less'
 
 interface ModalProps {
   open: boolean,

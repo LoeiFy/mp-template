@@ -9,7 +9,6 @@ import $ from '../../store/action'
 import './index.less'
 
 definePageConfig({
-  // navigationStyle: 'custom',
   navigationBarTitleText: '首页',
 })
 
@@ -25,16 +24,7 @@ const T: FC = () => {
   }
 
   const onToast = () => {
-    // $.toast('Toast', 'success')
-    // toast({ title: '不显示图标，此时 title 文本最多可显示两行，1.9.0及以上版本支持', icon: 'none', mask: true })
-    wx.showActionSheet({
-      alertText: '????',
-      itemList: ['a', 'b'],
-      itemColor: 'gray',
-      success(res) {
-        console.log(res)
-      },
-    })
+    $.toast('Toast', 'success')
   }
 
   const onLoading = async () => {
@@ -45,12 +35,13 @@ const T: FC = () => {
 
   const onActionSheet = () => {
     $.actionsheet({
+      hash: '???',
       options: [
-        { name: '选项1', value: '0' },
-        { name: '选项2', value: '1', disabled: true },
+        { label: '选项1', value: '0' },
+        { label: '选项2', value: '1', disabled: true },
       ],
-      header: '什么',
-      cancel: 'cancel',
+      title: '什么',
+      showCancel: true,
     }, (value, hash) => {
       console.log(value, hash)
     })
@@ -64,11 +55,10 @@ const T: FC = () => {
   return (
     <Page
       loading={false}
-      // header={{ title: '首页' }}
       // background="gray"
     >
       <View className="demo" style={{ height: 100, fontSize: 20 }}>Hello world!</View>
-      <View onClick={onToast}>???</View>
+      <View onClick={onActionSheet}>???</View>
       {/* <Button.Group variant="contained" color="primary" shape="round"> */}
       {/* <Button type="primary" loading onClick={onDialog}>Dialog</Button>
       <Button onClick={onLoading}>Loading</Button>

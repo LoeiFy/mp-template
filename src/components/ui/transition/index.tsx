@@ -1,7 +1,7 @@
 import { CSSTransition } from 'react-transition-group'
 import { TransitionChildren } from 'react-transition-group/Transition'
 import { prefix } from '../styles'
-import './index.less'
+// import './index.less'
 
 interface TransitionProps {
   name: 'fade' | 'slide-up' | 'slide-down' | 'slide-left' | 'slide-right',

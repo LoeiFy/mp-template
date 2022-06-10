@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { View } from '@tarojs/components'
 import Transition from '../transition'
 import { prefix } from '../styles'
-import './index.less'
+// import './index.less'
 
 interface PopupProps {
   open: boolean,

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { View } from '@tarojs/components'
 import Popup from '../popup'
 import { prefix } from '../styles'
-import './index.less'
+// import './index.less'
 
 interface ToastProps {
   type?: 'loading' | 'success' | 'fail',

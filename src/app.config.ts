@@ -2,8 +2,8 @@
 
 export default {
   pages: [
-    'pages/order/index',
     'pages/index/index',
+    'pages/order/index',
   ],
   window: {
     backgroundTextStyle: 'light',

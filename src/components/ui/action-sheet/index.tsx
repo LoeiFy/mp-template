@@ -1,7 +1,10 @@
 import { View } from '@tarojs/components'
 import Popup from '../popup'
 import { prefix } from '../styles'
-import './index.less'
+import { SYSTEM } from '../../../helpers/common'
+// import './index.less'
+
+const { screenHeight, safeArea } = SYSTEM
 
 interface ActionSheetProps {
   open: boolean,
@@ -54,6 +57,12 @@ export default function ({
         {
           showCancel ? <View onClick={onCancel} className={`${prefix}actionsheet-cancel`}>取消</View> : null
         }
+        <View
+          style={{
+            height: screenHeight - (safeArea?.bottom || 0),
+            background: '#fff',
+          }}
+        />
       </View>
     </Popup>
   )

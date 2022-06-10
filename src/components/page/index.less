@@ -1,4 +1,4 @@
-@import "../ui//styles/variables.less";
+@import "../ui/styles/variables.less";
 
 page {
   height: 100%;
@@ -10,6 +10,14 @@ page {
   align-items: center;
   justify-content: center;
   height: 100%;
+}
+.base-loading-spin {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  border: 2px solid transparent;
+  border-color: #1989fa #1989fa transparent transparent;
+  animation: spin 1s linear infinite;
 }
 .base-container {
   height: 100%;
@@ -27,4 +35,10 @@ page {
   flex: 1;
   height: 0;
   overflow-x: hidden;
+}
+
+@keyframes spin {
+  to {
+      transform: rotate(360deg);
+  }
 }
