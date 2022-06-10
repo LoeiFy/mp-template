@@ -1,9 +1,6 @@
 import { FC } from 'react'
 import { View } from '@tarojs/components'
-// import { Button } from '@taroify/core'
-// import { Button } from '@antmjs/vantui'
 import api from '../../helpers/fetcher'
-import { getUserInfo, loading, toast } from '../../helpers/wx'
 import Page from '../../components/page'
 import $ from '../../store/action'
 import './index.less'
@@ -14,10 +11,11 @@ definePageConfig({
 
 const T: FC = () => {
   const onDialog = () => {
-    $.dialog({
+    $.modal({
       title: 'Dialog',
-      content: 'Dialog Content',
+      message: 'Dialog Content',
       showCancel: true,
+      hash: '???',
     }, (confirmed, hash) => {
       console.log(confirmed, hash)
     })
@@ -58,7 +56,7 @@ const T: FC = () => {
       // background="gray"
     >
       <View className="demo" style={{ height: 100, fontSize: 20 }}>Hello world!</View>
-      <View onClick={onActionSheet}>???</View>
+      <View onClick={onDialog}>???</View>
       {/* <Button.Group variant="contained" color="primary" shape="round"> */}
       {/* <Button type="primary" loading onClick={onDialog}>Dialog</Button>
       <Button onClick={onLoading}>Loading</Button>

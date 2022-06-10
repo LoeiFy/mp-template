@@ -18,6 +18,7 @@ export type State = {
     title?: string,
     message: string,
     showCancel?: boolean,
+    loading?: boolean,
   },
   actionSheet: {
     value?: Option,

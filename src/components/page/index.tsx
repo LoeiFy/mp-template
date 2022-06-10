@@ -6,6 +6,7 @@ import { SYSTEM } from '../../helpers/common'
 import { useStore, emit } from '../../store'
 import Toast from '../ui/toast'
 import ActionSheet from '../ui/action-sheet'
+import Modal from '../ui/modal'
 import './index.less'
 
 interface PageProps {
@@ -78,27 +79,21 @@ const P: FC<PageProps> = ({
         type={toast.type}
         onClose={() => emit({ toast: { ...toast, message: '' } })}
       />
-      {/* <Dialog
-        open={dialog.open}
-        onClose={() => emit({ dialog: { ...dialog, open: false } })}
-      >
-        {dialog.title ? <Dialog.Header>{dialog.title}</Dialog.Header> : null}
-        <Dialog.Content>{dialog.content}</Dialog.Content>
-        <Dialog.Actions>
-          {
-            dialog.showCancel
-              ? <Button onClick={() => emit({ dialog: { ...dialog, open: false } })}>取消</Button>
-              : null
-          }
-          <Button
-            onClick={() => {
-              emit({ dialog: { ...dialog, open: false, confirmed: true } })
-            }}
-          >
-            确认
-          </Button>
-        </Dialog.Actions>
-      </Dialog> */}
+      <Modal
+        open={modal.open}
+        loading={modal.loading}
+        title={modal.title}
+        message={modal.message}
+        onCancel={() => {
+          emit({ modal: { ...modal, open: false } })
+        }}
+        onClose={() => {
+          emit({ modal: { ...modal, open: false } })
+        }}
+        onConfirm={() => {
+          emit({ modal: { ...modal, open: false, confirmed: true } })
+        }}
+      />
       <ActionSheet
         open={actionSheet.open}
         onSelect={(value) => {
