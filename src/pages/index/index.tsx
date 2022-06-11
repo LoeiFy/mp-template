@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import { View } from '@tarojs/components'
-import api from '../../helpers/fetcher'
+import { Button } from '@taroify/core'
+import { EyeOutlined } from '@taroify/icons'
 import Page from '../../components/page'
 import $ from '../../store/action'
 import './index.less'
@@ -10,12 +11,12 @@ definePageConfig({
 })
 
 const T: FC = () => {
-  const onDialog = () => {
+  const onModal = () => {
     $.modal({
       title: 'Dialog',
       message: 'Dialog Content',
       showCancel: true,
-      hash: '???',
+      hash: '1',
     }, (confirmed, hash) => {
       console.log(confirmed, hash)
     })
@@ -33,46 +34,43 @@ const T: FC = () => {
 
   const onActionSheet = () => {
     $.actionsheet({
-      hash: '???',
+      hash: '2',
       options: [
         { label: '选项1', value: '0' },
-        { label: '选项2', value: '1', disabled: true },
+        { label: '选项2', value: '1' },
       ],
-      title: '什么',
-      showCancel: true,
+      title: '什么!!!',
+      showCancel: false,
+      bottomGap: false,
     }, (value, hash) => {
       console.log(value, hash)
     })
   }
 
-  const onLoad = async () => {
-    const res = await api.post()
-    console.log(res.info)
-  }
-
   return (
     <Page
       loading={false}
-      // background="gray"
+      background="#f2f2f2"
+      bottomGap={false}
     >
-      <View className="demo" style={{ height: 100, fontSize: 20 }}>Hello world!</View>
-      <View onClick={onDialog}>???</View>
-      {/* <Button.Group variant="contained" color="primary" shape="round"> */}
-      {/* <Button type="primary" loading onClick={onDialog}>Dialog</Button>
-      <Button onClick={onLoading}>Loading</Button>
-      <Button onClick={onActionSheet}>ActionSheet</Button>
-      <Button onClick={onToast}>Toast</Button> */}
-      {/* </Button.Group> */}
+      <Button.Group className="demo" variant="contained" color="primary" shape="round">
+        <Button onClick={onModal}>Dialog</Button>
+        <Button onClick={onLoading}>Loading</Button>
+        <Button onClick={onActionSheet}>ActionSheet</Button>
+        <Button onClick={onToast}>Toast</Button>
+      </Button.Group>
       <View id="page-bottom">
-        {/* <Button
-          onClick={async () => {
-            const res = await getUserInfo()
-            console.log(res)
+        <Button
+          icon={<EyeOutlined />}
+          onClick={() => {
+            wx.navigateTo({ url: '/pages/next/index' })
           }}
-          // openType="getUserInfo"
-        >AAA
+          block
+          shape="round"
+          color="primary"
+        >
+          Next
         </Button>
-        <Button onClick={onLoad}>Loading</Button> */}
       </View>
     </Page>
   )

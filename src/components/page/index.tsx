@@ -108,6 +108,8 @@ const P: FC<PageProps> = ({
         title={actionSheet.title}
         options={actionSheet.options}
         description={actionSheet.description}
+        bottomGap={actionSheet.bottomGap}
+        showCancel={actionSheet.showCancel}
       />
     </View>
   )

@@ -8,7 +8,7 @@ declare module '*.less';
 
 declare namespace NodeJS {
   interface ProcessEnv {
-    TARO_ENV: 'weapp' | 'h5',
+    TARO_ENV: 'weapp',
     NODE_ENV: 'development' | 'production',
   }
 }

@@ -15,6 +15,7 @@ interface ActionSheetProps {
     value: string | number,
   }[],
   showCancel?: boolean,
+  bottomGap?: boolean | string,
   onSelect?: (value: {
     label: string,
     value: string | number,
@@ -30,6 +31,7 @@ export default function ({
   description,
   options,
   showCancel = true,
+  bottomGap = '#fff',
   onSelect = () => null,
   onCancel = () => null,
   onClose = () => null,
@@ -57,12 +59,16 @@ export default function ({
         {
           showCancel ? <View onClick={onCancel} className={`${prefix}actionsheet-cancel`}>取消</View> : null
         }
-        <View
-          style={{
-            height: screenHeight - (safeArea?.bottom || 0),
-            background: '#fff',
-          }}
-        />
+        {
+          bottomGap ? (
+            <View
+              style={{
+                height: screenHeight - (safeArea?.bottom || 0),
+                background: bottomGap as string,
+              }}
+            />
+          ) : null
+        }
       </View>
     </Popup>
   )

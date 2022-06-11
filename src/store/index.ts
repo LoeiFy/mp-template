@@ -21,6 +21,7 @@ export type State = {
     loading?: boolean,
   },
   actionSheet: {
+    bottomGap?: boolean | string,
     value?: Option,
     hash?: string,
     open: boolean,
