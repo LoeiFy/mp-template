@@ -26,9 +26,6 @@ const config = {
     postcss: {
       pxtransform: {
         enable: true,
-        config: {
-          selectorBlackList: ['mpt'],
-        },
       },
       url: {
         enable: true,

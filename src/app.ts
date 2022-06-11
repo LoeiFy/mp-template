@@ -8,7 +8,6 @@ export default class extends Component {
     initStore()
 
     await wx.login()
-    await new Promise((r) => setTimeout(r, 3000))
     login()
   }
 
